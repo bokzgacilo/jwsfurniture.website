@@ -1,0 +1,49 @@
+p {
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (min-width: 600px) {
+  aside {
+    width: 25vw;
+    height: 100vh;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+  }
+
+  .active {
+    background-color: #251a00;
+    color: #fff !important;
+  }
+
+  aside > a {
+    border-radius: 2px;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000 !important;
+  }
+
+  #root {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  
+  main {
+    width: 75vw;
+  }
+}

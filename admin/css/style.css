@@ -1,0 +1,18 @@
+@import url(../../assets/bootstrap/css/bootstrap.min.css);
+@import url(../../assets/fontawesome/css/all.min.css);
+@import url(https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css);
+
+
+h2, h4, h5, h6{
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+} 
+
+.modal-content {
+  border-radius: 0;
+}

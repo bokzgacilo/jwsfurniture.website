@@ -1,0 +1,111 @@
+/* For smaller screen between 0 to 500*/
+
+@media only screen and (max-width: 500px) {
+  #product-list {
+    display: grid;
+    grid-template-columns: 49% 49%;
+    row-gap: 10px;
+    column-gap: 2%;
+  }
+
+  .product {
+    width: auto;
+    cursor: pointer;
+    display: flex;
+    padding: 0.5rem;
+    flex-direction: column;
+    transition: 0.25s;
+    color: #3c3c3c;
+  }
+
+  .product > :nth-child(4) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(233, 132, 0);
+  }
+
+  .product > :nth-child(4) > span {
+    color: #3c3c3c;
+  }
+}
+
+
+
+/* For bigger screen above */
+@media only screen and (min-width: 500px) {
+  #product-list {
+    display: grid;
+    grid-template-columns: 15% 15% 15% 15% 15%;
+    width: 100%;
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-content: center;    
+  }
+  
+  .product {
+    width: auto;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    transition: 0.25s;
+    color: #3c3c3c;
+    background-color: #fff;    
+  }
+
+  .product > :nth-child(4) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(233, 132, 0);
+    margin-top: auto;
+  }
+
+  .product > :nth-child(4) > span {
+    color: #3c3c3c;
+  }
+}
+
+/* Common */
+
+.sc-header {
+  color: #fff;
+}
+
+.category-list {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  overflow-y: hidden;
+  overflow-x: auto; 
+}
+
+.category-list > a {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  color: #3c3c3c;
+  border-radius: 5px;
+  padding: 0.5rem 1.25rem;
+  background-color: #fff;
+}
+
+.category-selected {
+  background-color: rgb(1, 141, 1) !important;
+  color: #fff !important;
+}
+
+.product-container {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  width: 100%;
+}
+
+html, article, .category-list {
+  background-color: #3d2d1e;
+}

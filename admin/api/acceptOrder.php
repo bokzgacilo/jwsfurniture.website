@@ -1,0 +1,17 @@
+<?php
+  include('connection.php');
+
+  $reference_number = $_POST['reference_number'];
+  
+  $status_description = "The seller is processing your order.";
+
+  $sql = $conn -> query("UPDATE production SET status='ACCEPTED', status_description='$status_description' WHERE reference_number='$reference_number'");
+
+  if($sql){
+    echo 1;
+  }else {
+    echo 0;
+  }
+
+  $conn -> close();
+?>
