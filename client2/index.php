@@ -1,3 +1,14 @@
+<?php
+  session_start();
+  include('api/connection.php');
+
+
+  if(isset($_SESSION['client'])){
+    $getUser = $conn -> query("SELECT * FROM user WHERE uid='".$_SESSION['client']."'");
+    $getUser = $getUser -> fetch_assoc();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +79,7 @@
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body" id="account-offcanvas-body">
-      <form class="loginform">
+      <form class="loginform" action="api/emailer/sendVerification.php" method="post">
         <h4 class="title is-4 mb-2">Login</h4>
         <input type="email" name="logEmail" placeholder="juandelacruz@gmail.com" class="input" />
         <input type="password" name="logPassword" placeholder="***********" class="input" />
@@ -88,6 +99,39 @@
       </a>
     </div>
   </div>
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="loggedAccount" aria-labelledby="loggedAccountLabel">
+  <div class="offcanvas-header">
+    <p class="is-size-5 has-text-weight-medium"><?php echo $getUser['name']; ?></p>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <a href="shop.php" class="button is-link mb-2">
+      <span class="icon">
+        <i class="fa-solid fa-bag-shopping"></i>
+      </span>
+      <span>Go Shopping</span>
+    </a>
+    <a href="cart.php" class="button mb-2">
+      <span class="icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </span>
+      <span>My Cart</span>
+    </a>
+    <a href="user.php" class="button mb-2">
+      <span class="icon">
+        <i class="fa-solid fa-user"></i>
+      </span>
+      <span>My Profile</span>
+    </a>
+    <a class="button" href="api/logout.php">
+      <span class="icon">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      </span>
+      <span>Logout</span>
+    </a>
+  </div>
+</div>
   
   <div class="offcanvas offcanvas-end" tabindex="-1" id="register" aria-labelledby="registerLabel">
   <div class="offcanvas-header">
@@ -130,39 +174,23 @@
           </button>
         </form>
         <a class="mr-4 button is-link" href="shop.php">Go Shopping</a>
-        <?php
-          session_start();
-          include('api/connection.php');
-
-          if(isset($_SESSION['client'])){
-            $getUser = $conn -> query("SELECT * FROM user WHERE uid='".$_SESSION['client']."'");
-            $getUser = $getUser -> fetch_assoc();
-          }
-
-          if(isset($_SESSION['client'])){
-            echo "
-              <a data-bs-toggle='offcanvas' href='#loggedAccount' role='button' aria-controls='loggedAccount' title='My Account'>
-                <figure class='image is-48x48'>
-                  <img class='is-rounded' src='".$getUser['photo_url']."' />
-                </figure>  
-              </a>
-            ";
-          }else {
-            echo "
-              <a 
-                style='color: #fff; 
-                display: grid;
-                place-items: center;
-                background-color: gray; 
-                width: 48px;
-                height: 48px;
-                
-                ' data-bs-toggle='offcanvas' href='#account' role='button' aria-controls='account' title='Account'>
-                <i class='fa-solid fa-user fa-xl'></i>
-              </a>
-            ";
-          }
-        ?>
+        <div class="action ml-auto">
+  <?php
+    if(isset($_SESSION['client'])){
+      echo "
+        <a data-bs-toggle='offcanvas' href='#loggedAccount' role='button' aria-controls='loggedAccount' title='My Account'>
+          <img src='".$getUser['photo_url']."' />
+        </a>
+      ";
+    }else {
+      echo "
+        <a data-bs-toggle='offcanvas' href='#account' role='button' aria-controls='account' title='Account'>
+          <i class='fa-solid fa-user'></i>
+        </a>
+      ";
+    }
+  ?>
+</div>
       </div>
     </header>
     <div class="is-flex is-flex-direction-column">
@@ -214,15 +242,51 @@
         </figure>
         <p class="is-size-5 has-text-weight-medium mb-4">We offer made to order ordinary and designs Panel Doors, jambs ,slots and Louvers</p>
         <p class="is-size-4 has-text-weight-bold mb-4">Opening Hours</p>
-        <ul>
-          <li>Monday: 08:00 - 19:00</li>
-          <li>Tuesday: 08:00 - 19:00</li>
-          <li>Wednesday: 08:00 - 19:00</li>
-          <li>Thursday: 08:00 - 19:00</li>
-          <li>Friday: 08:00 - 19:00</li>
-          <li>Saturday: 08:00 - 19:00</li>
-          <li>Sunday: 08:00 - 19:00</li>
-        </ul>
+        <table class="table is-bordered w-50">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Opening</th>
+              <th>Closing</th>
+            </tr>
+          <tbody>
+            <tr>
+              <td>Monday</td>
+              <td>8 AM</td>
+              <td>4 PM</td>
+            </tr>
+            <tr>
+              <td>Tuesday</td>
+              <td>8 AM</td>
+              <td>4 PM</td>
+            </tr>
+            <tr>
+              <td>Wednesday</td>
+              <td>8 AM</td>
+              <td>4 PM</td>
+            </tr>
+            <tr>
+              <td>Thursday</td>
+              <td>8 AM</td>
+              <td>4 PM</td>
+            </tr>
+            <tr>
+              <td>Friday</td>
+              <td>8 AM</td>
+              <td>4 PM</td>
+            </tr>
+            <tr>
+              <td>Saturday</td>
+              <td>8 AM</td>
+              <td>12PM</td>
+            </tr>
+            <tr>
+              <td>Sunday</td>
+              <td>Closed</td>
+              <td>Closed</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section id="services" class="is-flex is-flex-direction-column">
         <p class="mt-6 is-size-4 has-text-weight-bold mb-4">Services Offered</p>
@@ -275,44 +339,6 @@
   <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="loader.js"></script>
   <script>
-      // For Login
-      $(document).on('submit', '.loginform', function(event){
-          event.preventDefault();
-          var serializedData = $(this).serialize();
-          var statusCode = 0;
-          $.ajax({
-              type: 'post',
-              url: 'api/loginUsingForm.php',
-              data: serializedData,
-              beforeSend: () => {
-
-              },
-              success: (response) => {
-                  statusCode = parseInt(response);
-              },
-              complete: () => {
-                  switch(statusCode){
-                      case 1:
-                          Swal.fire({
-                              title: 'Login Successfully',
-                              text: "Thank you for logging in",
-                              icon: 'success',
-                              showCancelButton: false,
-                              confirmButtonColor: '#3085d6',
-                              cancelButtonColor: '#d33',
-                              confirmButtonText: 'Proceed and reload the page.'
-                          }).then((result) => {
-                              location.reload();
-                          })
-                          break;
-                      case 0:
-                          $('#error-login').text('Invalid email or password. Please try again.')
-                          break;
-                  }
-              }
-          })
-      })
-
       // For Register
       $(document).on('submit', '#registerForm', function(event){
           event.preventDefault();
@@ -366,9 +392,6 @@
           })
       })
 
-      // function openAddressModal() {
-      //   $('#addressModal').modal('show')
-      // }
 
       if(location.search !== ''){
           $('#searchInput').val(localStorage.getItem('q'));

@@ -5,7 +5,8 @@
     "google/apiclient": "2.12.1",
     "omnipay/paypal": "^3.0",
     "php-http/guzzle7-adapter": "^1.0",
-    "guzzlehttp/guzzle" : "*"
+    "guzzlehttp/guzzle" : "*",
+    "phpmailer/phpmailer": "^6.8"
   },
   "config": {
     "allow-plugins": {
